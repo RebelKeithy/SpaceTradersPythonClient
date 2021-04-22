@@ -5,6 +5,7 @@ import requests
 from components.flight_component import FlightComponent
 from components.loan_component import LoanComponent
 from components.location_component import LocationComponent
+from components.market_component import MarketComponent
 from constants import LoanType
 from model.flight_plan import FlightPlan
 from model.loan import Loan
@@ -26,6 +27,7 @@ class SpaceTraderClient:
         self.flights: FlightComponent = FlightComponent(self)
         self.loans: LoanComponent = LoanComponent(self)
         self.locations: LocationComponent = LocationComponent(self)
+        self.market: MarketComponent = MarketComponent(self)
 
     @property
     def auth_headers(self):
@@ -67,35 +69,3 @@ class SpaceTraderClient:
         print(response.text)
         return Ship.from_json(response.json())
 
-    def purchase_orders(self, ship_id: str, good: str, quantity: int):
-        params = {
-            'shipId': ship_id,
-            'good': good,
-            'quantity': quantity
-        }
-        response = requests.post(f'{self.user_endpoint}/purchase-orders', headers=self.auth_headers, params=params)
-        response.raise_for_status()
-        return {
-            'credits': response.json()['credits'],
-            'order': Order.from_json(response.json()['order']),
-            'ship': Ship.from_json(response.json()['ship'])
-        }
-
-    def marketplace(self, location: str) -> List:
-        response = requests.get(f'{self.game_endpoint}/locations/{location}/marketplace', headers=self.auth_headers)
-        response.raise_for_status()
-        return Location.from_json(response.json()['location'])
-
-    def sell_order(self, ship_id: str, good: str, quantity: int):
-        params = {
-            'shipId': ship_id,
-            'good': good,
-            'quantity': quantity
-        }
-        response = requests.post(f'{self.user_endpoint}/sell-orders', headers=self.auth_headers, params=params)
-        response.raise_for_status()
-        return {
-            'credits': response.json()['credits'],
-            'order': Order.from_json(response.json()['order']),
-            'ship': Ship.from_json(response.json()['ship'])
-        }
