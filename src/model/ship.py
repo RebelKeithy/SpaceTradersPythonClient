@@ -39,17 +39,17 @@ class Ship:
     def from_json(json):
         return Ship(
             cargo=[Cargo.from_json(cargo) for cargo in json.get('cargo', [])],
-            class_=json['class'],
+            class_=json.get('class'),
             id=json.get('id'),
             location=json.get('location'),
-            manufacturer=json['manufacturer'],
-            max_cargo=json['maxCargo'],
-            plating=json['plating'],
+            manufacturer=json.get('manufacturer'),
+            max_cargo=json.get('maxCargo'),
+            plating=json.get('plating'),
             purchase_locations=[PurchaseLocation.from_json(loc) for loc in json.get('purchaseLocations', [])],
             space_available=json.get('spaceAvailable'),
-            speed=json['speed'],
-            type=json['type'],
-            weapons=json['weapons'],
+            speed=json.get('speed'),
+            type=json.get('type'),
+            weapons=json.get('weapons'),
             x=json.get('x'),
             y=json.get('y')
         )
