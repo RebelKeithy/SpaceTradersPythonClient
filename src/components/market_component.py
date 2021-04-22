@@ -11,7 +11,7 @@ class MarketComponent:
     def __init__(self, client):
         self.client = client
 
-    def list(self, location: str) -> List:
+    def list(self, location: str) -> Location:
         url = f'{self.client.game_endpoint}/locations/{location}/marketplace'
         response = requests.get(url, headers=self.client.auth_headers)
         response.raise_for_status()
