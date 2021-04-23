@@ -5,6 +5,7 @@ from components.loan_component import LoanComponent
 from components.location_component import LocationComponent
 from components.market_component import MarketComponent
 from components.ship_component import ShipComponent
+from components.structure_component import StructureComponent
 from model.user import User
 
 URL = "https://api.spacetraders.io"
@@ -20,6 +21,7 @@ class SpaceTraderClient:
         self.locations: LocationComponent = LocationComponent(self)
         self.market: MarketComponent = MarketComponent(self)
         self.ships: ShipComponent = ShipComponent(self)
+        self.structures: StructureComponent = StructureComponent(self)
 
     @property
     def auth_headers(self):

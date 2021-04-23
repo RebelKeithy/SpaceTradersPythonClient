@@ -20,7 +20,6 @@ class FlightPlan:
 
     @staticmethod
     def from_json(json):
-        print(json)
         return FlightPlan(
             arrives_at=json.get('arrivesAt'),
             created_at=json.get('createdAt'),
